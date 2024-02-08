@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olekumasin</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: "Source Serif Pro", sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            height: 80vh;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 5px solid #333;
+
+        }
+
+        .border-container{
+            width: 90%;
+            height: 90%;
+        }
+
+        .door {
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            height: 70%;
+            width: 50%;
+            background-color: #333;
+            transform-origin: left center;
+            transform: perspective(1200px) rotateY(0deg);
+            border-right: 5px solid rgba(12, 13, 8, 0.27);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            background-image: url("https://img2.rudalle.ru/images/9f/5b/d0/9f5bd08d74cc4dcca08ed8987199cca6_00000.jpg");
+            background-size: cover;
+        }
+        .door-border{
+            position: absolute;
+            border: black solid 1px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            height: 70%;
+            width: 50%;
+            background-color: #b9b2ab;
+            background-image: url("https://www.salgar.net/cdnassets/wc-unit-roble-caledonia_l.jpg");
+            background-size: cover;
+            transition: filter 0.5s ease; /* Smooth transition for brightness */
+            display: inline-block;
+            transform-origin: left center;
+            transform: perspective(1200px) rotateY(0deg);
+            filter: brightness(0.1);
+        }
+
+
+        button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            filter: brightness(0.8);
+        }
+        /* Light switch */
+        .switch-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .switch {
+            display: inline-block;
+            height: 34px;
+            position: relative;
+            width: 60px;
+        }
+
+        .switch input {
+            display:none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 26px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 26px;
+        }
+
+        input:checked + .slider {
+            background-color: #66bb6a;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        @keyframes door {
+            0% {
+                transform: translateX(-50vw);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Olekumasina interaktiivne veebileht</h1>
+</header>
+<div class="container">
+    <div class="border-container">
+        <div id="room" class="door-border">
+            <div class="switch-container">
+                <label class="switch" for="brightnessSwitch">
+                    <input type="checkbox" id="brightnessSwitch" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
+        </div>
+        <div class="door">
+            <button id="interactiveButton">Tee lahti</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const interactiveButton = document.getElementById("interactiveButton");
+    const brightnessSwitch = document.getElementById("brightnessSwitch");
+    const room = document.getElementById("room");
+    const door = document.querySelector(".door");
+
+    let isClosed = false;
+
+    interactiveButton.addEventListener("click", () => {
+        door.style.animation = "none";
+        door.offsetHeight;
+        if (isClosed) {
+            door.style.animation = "door 1s ease-in 0s 1 normal forwards";
+            isClosed = false;
+            interactiveButton.textContent = "Tee lahti";
+        } else {
+            door.style.animation = "door 1s ease-out 0s 1 reverse forwards";
+            isClosed = true;
+            interactiveButton.textContent = "Pane kinni";
+        }
+    });
+    brightnessSwitch.addEventListener("change", () => {
+        if (brightnessSwitch.checked) {
+            // Toggle on: Darken the background
+            room.style.filter = "brightness(1)"; // Adjust the brightness value as needed
+        } else {
+            // Toggle off: Restore normal brightness
+            room.style.filter = "brightness(0.1)";
+        }
+    });
+</script>
+</body>
+</html>
