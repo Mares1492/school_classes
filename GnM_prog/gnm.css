@@ -1,0 +1,19 @@
+body{
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: black;
+}
+
+canvas{
+    height: 50vh;
+}
+
+h1{
+    font-size: 2em;
+    font-weight: 600;
+    font-family: monospace;
+    color: blanchedalmond;
+}
