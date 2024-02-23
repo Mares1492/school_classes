@@ -1,6 +1,7 @@
 let canvas;
 let ctx;
-const MAXCOUNTER = 360
+const MAX_COUNTER = 360
+const SPEED_MOD = 1
 
 window.onload = () =>{
     canvas =document.getElementById("canvas");
@@ -43,11 +44,11 @@ window.onload = () =>{
                 (secondsCounter.toString().length===2?secondsCounter:"0"+secondsCounter)
             )
             
-            if (secondsCounter<MAXCOUNTER) {
+            if (secondsCounter<MAX_COUNTER) {
                 return initTimer()
             }
             title.textContent = "This is the end..."
-        },1000)
+        },1000*SPEED_MOD)
     }
     initTimer()
 }
