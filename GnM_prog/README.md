@@ -12,3 +12,5 @@ A basic css for the canvas. Will be updated as needed.
 | strange_shapes.js | Homework 1 | Heart printer | Ready  |
 | clock_on_the_block.js | Homework 2 | Clock | Ready  |
 
+![heart](https://github.com/Mares1492/school_classes/assets/90237423/c81a28b0-ec95-412f-aeec-d1c53b630b1a  "Homework 1")
+![clock](https://github.com/Mares1492/school_classes/assets/90237423/969742c2-31c0-4bd6-b513-8d139d5f227b "Homework 2")
