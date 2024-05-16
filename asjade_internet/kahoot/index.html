@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <style>
+    .game-container{
+      width: 100%;
+      display:flex;
+      justify-content:center;
+      text-align:center;
+      align-items:center;
+      flex-direction:column;
+    }
+    .button-container{
+      display:flex;
+      justify-content:space-around;
+      min-width:50%;
+    }
+    button{
+      appearance: none;
+      background-color: #000000;
+      border: 2px solid #1A1A1A;
+      border-radius: 15px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      margin: 0;
+      min-height: 60px;
+      min-width: 0;
+      outline: none;
+      padding: 16px 24px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 25%;
+      will-change: transform;
+    }
+
+    button:disabled {
+      pointer-events: none;
+    }
+
+    button:hover {
+      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      box-shadow: none;
+      transform: translateY(0);
+    }
+
+    /* Header styling */
+    .header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px; /* Adjust the size as needed */
+      color: #333; /* Change the color to your preference */
+      text-align: center; /* You can change the alignment */
+      padding: 20px; /* Adjust the padding as needed */
+    }
+
+    /* Info styling */
+    .info {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px; /* Adjust the size as needed */
+      color: #666; /* Change the color to your preference */
+      text-align: center; /* You can change the alignment */
+      margin: 10px; /* Adjust the margin as needed */
+    }
+  </style>
+  <script>
+    function getURL(to){
+      google.script.run.withSuccessHandler(path=>{
+          playerLink.value = path + "?page=player"
+          adminLink.value = path + "?page=admin"
+      }).getPath();
+    }
+    function copyURL(tag){
+      if(tag === 'p'){
+        navigator.clipboard.writeText(playerLink.value)
+        alert("Player link is copied to the clipboard")
+      }
+      else if(tag === 'a'){
+        navigator.clipboard.writeText(adminLink.value)
+        alert("Admin link is copied to the clipboard")
+      }
+    }
+  </script>
+  <body onload="getURL()">
+    <div class="game-container">
+      <h1 class="header">Main page</h1>
+      <p class="info">Click on the button to copy desired link to the clipboard</p>
+      <div class = "button-container">
+        <button role="button" onclick="copyURL('p')" id="playerLink">Player Link</button>
+        <button role="button" onclick="copyURL('a')" id="adminLink">Admin Link</button>
+      </div>
+    </div>
+  </body>
+
+</html>

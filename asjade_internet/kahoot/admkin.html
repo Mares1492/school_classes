@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+    .game-container{
+      width: 100%;
+      display:flex;
+      justify-content:center;
+      text-align:center;
+      align-items:center;
+      flex-direction:column;
+    }
+    .button-container{
+      display:flex;
+      justify-content:space-around;
+      width:30vw;
+    }
+    button{
+      appearance: none;
+      background-color: #000000;
+      border: 2px solid #1A1A1A;
+      border-radius: 15px;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      margin: 0;
+      min-height: 60px;
+      min-width: 0;
+      outline: none;
+      padding: 16px 24px;
+      text-align: center;
+      text-decoration: none;
+      transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: 30%;
+      will-change: transform;
+    }
+
+    button:hover {
+      box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      box-shadow: none;
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background-color: #ccc; 
+      color: #888; 
+      cursor: not-allowed;
+      pointer-events:none; 
+    }
+
+    /* Header styling */
+    .header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px; 
+      color: #333; 
+      text-align: center; 
+      padding: 20px; 
+    }
+
+    /* Timer styling */
+    .timer {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px; 
+      color: #FF5733; 
+      text-align: center; 
+      margin: 10px; 
+    }
+
+    /* Info styling */
+    .info {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px; 
+      color: #666; 
+      text-align: center;
+      margin: 10px; 
+    }
+
+    .results-board {
+      display:none;
+      font-family: 'Montserrat', sans-serif;
+      justify-content:space-around;
+      margin-top:2em;
+      font-size:32px;
+      width: 90%;
+    }
+
+  </style>
+    <script>
+      let timer=null;
+      function next(){
+        google.script.run.withSuccessHandler(()=>handleQuestionCall()).handleNextQuestionSwitch()
+      }
+      function handleQuestionCall(){
+        if (timer!=null){
+          console.error("Multiple question calls")
+          return
+        }
+        nextBtn.disabled = true
+        google.script.run.withSuccessHandler(question=>{
+          alert(question[0]+" | Time given: "+question[1]+ " seconds")
+          //Only in JS I can send game time to DB as "Game over" string :p
+          if(question[0]==="end"){
+            handleGameOver()
+            return google.script.run.handleTimer(100);
+          }
+          let time = parseInt(question[1])
+          console.log("initial time: "+time)
+          timer = setInterval(()=>{
+            google.script.run.withSuccessHandler(()=>{
+              if(time>0){
+                timeDisplay.innerHTML = time;
+              }
+              else if(time === 0){
+                clearInterval(timer)
+                if(timer != null){
+                  timer = null;
+                  handleQuestionEnd()
+                }
+              }
+              time--; 
+            }).handleTimer(time);
+          },1000)
+        }).getQuestion("admin")
+      }
+      
+      function handleQuestionEnd(){
+        timeDisplay.innerHTML = "Time is up! Click 'Next' to continue";
+        nextBtn.disabled = false
+        google.script.run.handleTimer(0)
+        return google.script.run.handleAnswersUpdate()
+      }
+
+      function start(){
+        startBtn.disabled = true;
+        resetBtn.disabled = false;
+        google.script.run.withSuccessHandler(
+          isGameActive=>{
+            if(!isGameActive){
+              info.innerHTML = "The game is already active. Reset?"
+              return
+            }
+          info.innerHTML = "Game has started"
+          handleQuestionCall()
+        }).startGame()
+      }
+      function reset(){
+        google.script.run.withSuccessHandler(()=>{
+          alert("Game status has been reset")
+          startBtn.disabled = false;
+          resultsBoard.style.display = "none"
+          info.innerHTML = "The game is reset"
+          timeDisplay.innerHTML = "..."
+          clearInterval(timer);
+          timer = null;
+        }).resetGame()
+      }
+      function handleGameOver(){
+        info.innerHTML = "Reset the game and start again for another run."
+        timeDisplay.innerHTML = "That was the last question. Game over!"
+        google.script.run.withSuccessHandler(results=>{
+          p1Result.innerHTML = results[1] +"/"+results[0]
+          p2Result.innerHTML = results[2] +"/"+results[0]
+          p3Result.innerHTML = results[3] +"/"+results[0]
+          resultsBoard.style.display = "flex"
+        }).getFinalResults()
+      }
+
+    </script>
+  </head>
+  <body>
+    <div class="game-container">
+      <h1 class="header">Admin page</h1>
+      <p class="info" id = "info"></p>
+      <div class="timer" id="timeDisplay"></div>
+      <div class="button-container">
+        <button id="startBtn"  onclick="start()">Start</button>
+        <button id = "resetBtn" disabled onclick="reset()">Reset</button>
+        <button id = "nextBtn" disabled onclick="next()">Next</button>
+      </div>
+      <div class="results-board" id="resultsBoard">
+        <div id="p1Result"></div>
+        <div id="p2Result"></div>
+        <div id="p3Result"></div>
+      </div>
+    </div>
+  </body>
+</html>

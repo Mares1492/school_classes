@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #f2f2f2;
+      }
+
+      button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #2bd1b0;
+        color: #fff;
+        box-shadow: 0 5px #a4a4a4;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      button:hover {
+        background-color: #3be7c5;
+      }
+      button:active {
+        background-color: #1b806c;
+        box-shadow: 0 5px #666;
+        transform: scale(0.90) translateY(4px);
+      }
+      input {
+        margin: 10 0 5 0;
+      }
+      input:hover {
+        background-color: #fffa
+      }
+
+      body {
+        font-family: "Source Pro", sans-serif;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      th, td {
+        text-align: left;
+        padding: 8px;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .inputContainer{
+        display:flex;
+        flex-direction:row;
+        justify-content:space-around;
+      }
+    </style>
+    <script>
+      function handleLoad(){
+          handleLampValueDisplay()
+          setInterval(handleLampValueDisplay,5000)
+      }
+      function handleLampValueDisplay(){
+        google.script.run.withSuccessHandler(function(dataArray){
+          dataArray = JSON.parse(dataArray)
+          console.log(dataArray)
+          lampValue.innerHTML = dataArray[1];
+          lampTimestamp.innerHTML = dataArray[0];
+        }).getLastLampData();
+      }
+      function handleRangeChange(){
+        rangeValue.innerHTML = lampInputValue.value
+      }
+    </script>
+  </head>
+  <body onload="handleLoad()">
+    <div>
+    <h1>Lamp data page</h1>
+    </br>
+    </div>
+    <div>
+    <table>
+    <tr>
+      <th>Timestamp</th>
+      <th>Integer</th>
+    </tr>
+    <tr>
+      <td><time id = "lampTimestamp"></time></td>
+      <td><data id = "lampValue"></data></td>
+    </tr>
+    </table>
+    </div>
+    <button onclick="google.script.run.toggleControlData()">Toggle</button>
+    <div class = "inputContainer">
+    <input onchange="handleRangeChange()" id = "lampInputValue" type="range" max="100" min="1">
+    <p id = "rangeValue">50</p>
+    </div>
+    <button onclick="google.script.run.addLampData(lampInputValue.value)">Add Value</button>
+  </body>
+</html>

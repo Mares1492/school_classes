@@ -1,0 +1,11 @@
+
+*.json
+*.xml
+*.exe
+*.txt
+*.h
+*.png
+*.jpg
+/int_syst/graff
+/cpp4life/utils
+/asjade_internet/classes
