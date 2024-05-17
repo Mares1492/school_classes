@@ -4,11 +4,13 @@ let title;
 const MAX_COUNTER = 360
 const SPEED_MOD = 1 // less - faster -> 0.1 - x10
 const TIMER_MODE = 1 // 0-timeout/1-animationFrame
+const scale = 1.9
+
 
 window.onload = () =>{
     canvas =document.getElementById("canvas");
     ctx = canvas.getContext("2d")
-    ctx.scale(2,-2)
+    ctx.scale(scale,-scale)
     title = document.getElementById("title")
     const seconds = getCoordinatesBasedOnPoints(60,0.25)
     const minutes = getCoordinatesBasedOnPoints(60,0.20)
@@ -72,6 +74,7 @@ window.onload = () =>{
                 return requestAnimationFrame(initTimerUsingAnimationFrame);
             }
             title.textContent = "This is the end..."
+            return;
 
         }
 
