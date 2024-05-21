@@ -12,7 +12,7 @@ A basic css for the canvas. Will be updated as needed.
 | strange_shapes.js | Homework 1 | Heart printer |✅|
 | clock_on_the_block.js | Homework 2 | Clock |✅|
 | polygon_on_n_on.js | Homework 3 | Polygon builder |✅|
-| matrix_n_swing.js | Homework 4 |  Object movement |:x:|
+| matrix_n_swing.js | Homework 4 |  Object movement |✅|
 | not_found | Test | Spiral |:x:|
 
 ![heart](https://github.com/Mares1492/school_classes/assets/90237423/c81a28b0-ec95-412f-aeec-d1c53b630b1a  "Homework 1")
