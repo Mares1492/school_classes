@@ -122,7 +122,7 @@ function clearCanvas() {
 
 function handleBallMovement() {
     if (ballState === BALL_STATES[0]) {
-        ballX += 1.5; 
+        ballX += 5; 
         if (ballX >= cannonX-(cannonLength*1.5)) { 
             //near cannon
             ballState = BALL_STATES[1];
@@ -130,9 +130,9 @@ function handleBallMovement() {
     } 
     if(ballState === BALL_STATES[1]){
         if (ballX <= cannonX-(cannonLength*0.8)) {
-            ballX += 1;
+            ballX += 1.5;
             if (ballY>= cannonY) {
-                ballY -= 1.5;
+                ballY -= 2;
             }
             return;
         }
