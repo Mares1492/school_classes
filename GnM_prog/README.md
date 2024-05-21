@@ -18,5 +18,4 @@ A basic css for the canvas. Will be updated as needed.
 ![heart](https://github.com/Mares1492/school_classes/assets/90237423/c81a28b0-ec95-412f-aeec-d1c53b630b1a  "Homework 1")
 ![clock](https://github.com/Mares1492/school_classes/assets/90237423/969742c2-31c0-4bd6-b513-8d139d5f227b "Homework 2")
 ![polygon](https://github.com/Mares1492/school_classes/assets/90237423/9f14b05c-32e5-40e6-ad53-1efc5204f88e "Homework 3")
-![tank-shooting](image.png "Homework 4")
-
+![tank-shooting](https://github.com/Mares1492/school_classes/assets/90237423/faa2c86a-02e0-4f6c-8911-de6cf8ca2ff1 "Homework 4")
