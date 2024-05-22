@@ -21,3 +21,13 @@ h1{
     font-family: monospace;
     color: blanchedalmond;
 }
+
+.sound-btn{
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    font-weight: bold;
+    background-color: aliceblue;
+    padding: 0.5rem 0.8rem;
+    font-family: 'Courier New', Courier, monospace;
+}
