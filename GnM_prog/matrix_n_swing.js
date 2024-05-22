@@ -11,8 +11,9 @@ let cannonY;
 let cannonHeight = 100;
 let cannonLength = 500;
 let angle = 0;
+let smokeSpreadMod = 1;
 let tankState = TANK_STATES[0];
-let ballState = BALL_STATES[0]
+let ballState = BALL_STATES[0];
 
 const getRandomInt = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
 
@@ -106,13 +107,21 @@ function drawBridge() {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(ballX, ballY, 45, 0, 2 * Math.PI); 
-    ctx.fillStyle = 'gray';
+    if (ballState===BALL_STATES[3]) {
+        ctx.fillStyle = 'orange';
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 7;
+        ctx.stroke();
+    }
+    else{
+        ctx.fillStyle = 'gray';
+    }
     ctx.fill();
     ctx.closePath()
 }
   
 function drawSmoke(x, y, size, opacity) {
-    ctx.fillStyle = `rgba(100, 100, 100, ${opacity})`; // Adjust opacity for fading
+    ctx.fillStyle = size<11?`rgba(225,42,4,${opacity})`:`rgba(255, 255, 255, ${opacity})`;
     ctx.fillRect(x, y, size, size);
 }
 
@@ -141,6 +150,7 @@ function handleBallMovement() {
         //inside
         ballState = BALL_STATES[2];
         tankState = TANK_STATES[1];
+        smokeSpreadMod = 1;
     }
     if (ballState===BALL_STATES[3]) {
         ballX += 8;
@@ -179,17 +189,21 @@ function animate() {
     if (ballState !== BALL_STATES[2]) {
         drawBall();    
     }
+    if (tankState===TANK_STATES[2] || tankState === TANK_STATES[3]) {
+        let smokeX = (canvas.width*0.5) + (cannonLength);
+        let smokeY = canvas.height - cannonLength;
+        for (let i = 0; i < 50; i++) {
+            drawSmoke(getRandomInt(smokeX-(100*smokeSpreadMod),smokeX+(100*smokeSpreadMod)),getRandomInt(smokeY-(150*smokeSpreadMod),smokeY+(50*smokeSpreadMod)), getRandomInt(1,20)*smokeSpreadMod,Math.random()-(smokeSpreadMod-3));
+        }
+        smokeSpreadMod+=0.1;
+    }
+    
     handleTankMovement();
   
     drawCannon();
     drowBase();
     drawBridge();
-  
-    if (tankState===BALL_STATES[3]) {
-        for (let i = 0; i < 10; i++) {
-            drawSmoke(getRandomInt(canvas.width*0.5-100,canvas.height*0.5+100),getRandomInt(canvas.height*0.5-100,canvas.height*0.5+100), getRandomInt(5,100),Math.random()+0.5);
-        }
-    }
+
   
     requestAnimationFrame(animate);
   }
