@@ -1,4 +1,4 @@
-![image](https://github.com/Mares1492/school_classes/assets/90237423/99e2f98a-37e1-4b2a-9a03-619f410c9069)# How to?
+# How to?
 ## index.html
 This file can be used along all the js files. 
 Just change the `file_name.js` in `<script src="file_name.js"></script>` to the desired file name.
