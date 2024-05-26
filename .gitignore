@@ -12,3 +12,6 @@
 /C/cmake-build-debug
 /int_syst/ml
 /.idea
+/frameworks_intro/toDoAngFlask/server/venv
+/frameworks_intro/toDoAngFlask/server/app/__pycache__
+/frameworks_intro/toDoAngFlask/server/__pycache__
