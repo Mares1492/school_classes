@@ -1,0 +1,17 @@
+<html lang="en">
+    <head>
+        <title>List of todos</title>
+    </head>
+<body>
+    <div>
+        <h1>Hello from Server</h1>
+        <p>Nice list of todos:</p>
+        <span>{{ todos.id }}</span>
+        <ul>
+        {% for todo in todos %}
+        <li>{{ todo.value }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+   </body>
+</html>
